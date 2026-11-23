@@ -1,0 +1,13 @@
+body {
+    margin: 0;
+    padding: 20px;
+}
+
+.canvases {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content: center;
+    align-items: start;
+    gap: 16px;
+    margin-top: 20px;
+}

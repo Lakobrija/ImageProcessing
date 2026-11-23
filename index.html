@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Photoshop</title>
+    <link rel=stylesheet href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <nav>
+        <ul class="nav nav-tabs justify-content-center">
+            <li class="nav-item">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownFile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                File
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownFile">
+                <a class="dropdown-item" onclick="loadImage()" style="cursor:pointer;">Load image</a>
+                <a class="dropdown-item" onclick="updatedImage()" style="cursor:pointer;">Update image</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownPixel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Pixel processing
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownPixel">
+                <a class="dropdown-item" onclick="red()" style="cursor:pointer;">Red</a>
+                <a class="dropdown-item" onclick="green()" style="cursor:pointer;">Green</a>
+                <a class="dropdown-item" onclick="blue()" style="cursor:pointer;">Blue</a>
+                <a class="dropdown-item" onclick="greyscale()" style="cursor:pointer;">Greyscale</a>
+                <a class="dropdown-item" onclick="negative()" style="cursor:pointer;">Negative</a>
+                <a class="dropdown-item" onclick="gamma()" style="cursor:pointer;">Gamma correction</a>
+                <a class="dropdown-item" onclick="threshold()" style="cursor:pointer;">Threshold</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownKernel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Kernel processing
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownKernel">
+                <a class="dropdown-item" onclick="boxBlur()" style="cursor:pointer;">Box blur</a>
+                <a class="dropdown-item" onclick="gaussBlur()" style="cursor:pointer;">Gauss blur</a>
+                <a class="dropdown-item" onclick="laplaceOperator()" style="cursor:pointer;">Laplace operator</a>
+                <a class="dropdown-item" onclick="sobelOperator()" style="cursor:pointer;">Sobel operator</a>
+                <a class="dropdown-item" onclick="sobelOperatorX()" style="cursor:pointer;">Sobel operator x</a>
+                <a class="dropdown-item" onclick="sobelOperatorY()" style="cursor:pointer;">Sobel operator y</a>
+                <a class="dropdown-item" onclick="medianFilter()" style="cursor:pointer;">Median filter</a>
+                <a class="dropdown-item" onclick="highPassFilter()" style="cursor:pointer;">High pass filter</a>
+                <a class="dropdown-item" onclick="sharpening()" style="cursor:pointer;">Sharpening</a>
+                <a class="dropdown-item" onclick="unsharpMasking()" style="cursor:pointer;">Unsharp masking</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownTransformation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Transformation
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownTransformation">
+                <a class="dropdown-item" onclick="loadSecondImage()" style="cursor:pointer;">Load second image</a>
+                <a class="dropdown-item" onclick="hybridImage()" style="cursor:pointer;">Hybrid image</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownPixelChanging" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Pixel changing
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownPixelChanging">
+                    <a class="dropdown-item" onclick="pixelChange()" style="cursor:pointer;">Pixel change</a>
+                    <div class="slidecontainer">
+                        <input type="range" min="-255" max="255" value="0" class="slider" id="red" onchange="pixelChange()"><br/><p> Red: <span id="demor"></span></p>
+                        <input type="range" min="-255" max="255" value="0" class="slider" id="green" onchange="pixelChange()"><br/><p> Green: <span id="demog"></span></p>
+                        <input type="range" min="-255" max="255" value="0" class="slider" id="blue" onchange="pixelChange()"><br/><p> Blue: <span id="demob"></span></p>
+                    </div>
+                    <script>
+                        var slider = document.getElementById("red");
+                        var output = document.getElementById("demor");
+                        output.innerHTML = slider.value;
+    
+                        var slider2 = document.getElementById("green");
+                        var output2 = document.getElementById("demog");
+                        output2.innerHTML = slider2.value;
+    
+                        var slider3 = document.getElementById("blue");
+                        var output3 = document.getElementById("demob");
+                        output3.innerHTML = slider3.value;
+                        
+                        slider.oninput = function() {
+                          output.innerHTML = this.value;
+                        }
+                        slider2.oninput = function() {
+                          output2.innerHTML = this.value;
+                        }
+                        slider3.oninput = function() {
+                          output3.innerHTML = this.value;
+                        }
+                    </script>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="canvases">
+        <canvas id="originalImage"></canvas>
+        <canvas id="updatedImage"></canvas>
+        <canvas id="secondImage"></canvas>
+    </div>
+
+    <!-- <div id="output"></div> -->
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="imgProcessing.js"></script>
+</body>
+</html>
